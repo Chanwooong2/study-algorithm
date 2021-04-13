@@ -25,48 +25,62 @@
 //	idea : answer의 길이만큼 1, 2, 3번 학생의 답안을 작성
 //  - 각 학생의 정답 여부 확인 
 
+// 너무 어렵게 푼 것 같아서 다시 ... ㅠㅠ..
 /* SOLUTION */
 function solution(answers) {
     var max = 0;
+    var result = [];
     var pattern1 = [1,2,3,4,5];
     var pattern2 = [2,1,2,3,2,4,2,5];
     var pattern3 = [3,3,1,1,2,2,4,4,5,5];
     
-    var student1 = check(pattern1, answers);
-    var student2 = check(pattern2, answers);
-    var student3 = check(pattern3, answers);
-    var res = [[1,student1], [2,student2], [3,student3]];
+    var student1 = answers.filter((item, idx) => item === pattern1[idx % pattern1.length]).length;
+    var student2 = answers.filter((item, idx) => item === pattern2[idx % pattern2.length]).length;
+    var student3 = answers.filter((item, idx) => item === pattern3[idx % pattern3.length]).length;
 
+    max = Math.max(student1, student2, student3);
 
-    res.sort((a, b) => b[1]-a[1]);
-    max = res[0][1];
+    if(student1 === max) result.push(1);
+    if(student2 === max) result.push(2);
+    if(student3 === max) result.push(3);
 
-    var resultArr = res.filter(item => {
-        if(item[1] >= max){
-            return item[0];
-        }
-    });
-
-    return resultArr.sort((a, b)=>a-b).map(a=>a[0]);
-}
-function check(pattern, answers){
-    var result = 0;
-    var pIdx = 0;
-    for(var i=0; i<answers.length; i++){
-        if(pIdx == pattern.length){
-            pIdx = 0;
-        }
-        if(answers[i] == pattern[pIdx]){
-            result++;
-        }
-        pIdx++;
-    }
     return result;
+    
+    // var student1 = check(pattern1, answers);
+    // var student2 = check(pattern2, answers);
+    // var student3 = check(pattern3, answers);
+    // var res = [[1,student1], [2,student2], [3,student3]];
+
+
+    // res.sort((a, b) => b[1]-a[1]);
+    // max = res[0][1];
+
+    // var resultArr = res.filter(item => {
+    //     if(item[1] >= max){
+    //         return item[0];
+    //     }
+    // });
+
+    // return resultArr.sort((a, b)=>a-b).map(a=>a[0]);
 }
+// function check(pattern, answers){
+//     var result = 0;
+//     var pIdx = 0;
+//     for(var i=0; i<answers.length; i++){
+//         if(pIdx == pattern.length){
+//             pIdx = 0;
+//         }
+//         if(answers[i] == pattern[pIdx]){
+//             result++;
+//         }
+//         pIdx++;
+//     }
+//     return result;
+// }
 
 /* TESTCASE & EXECUTE */
 var answers = [[1,2,3,4,5], [1,3,2,4,2], [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]];
-var resultList = [[1], [1,2,3], [0]]
+var resultList = [[1], [1,2,3], [2]]
 
 var i=0;
 while(i < resultList.length){
