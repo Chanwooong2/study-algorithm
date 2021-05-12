@@ -15,7 +15,8 @@ s는 길이 4 이상, 20이하인 문자열입니다.
 
 /* SOLUTION */
 function solution(phone_number) {
-    return phone_number.slice(0,phone_number.length-4).replace(/./gm,"*") + phone_number.slice(phone_number.length-4);
+    // return phone_number.slice(0,phone_number.length-4).replace(/./g,"*") + phone_number.slice(phone_number.length-4);
+    return phone_number.replace(/\d(?=\d{4})/g, "*");
 }
 
 /* TESTCASE & EXECUTE */
